@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed</title>
+</head>
+<body>
+    <h1>Speed: <span id='speed'>0</span>km/h</h1>
+    <script>
+        if("geolocation" in navigator){
+            navigator.geolocation.watchPosition(position =>{
+                const speed = position.coords.speed;
+                if (speed!==null){
+                    const speedkhpm = speed * 3.6;
+                    document.getElementById('speed').textContent=speedkhpm.toFixed(2);
+                }
+            },error=>{
+                console.error('Cant get geolocation',error);
+            },{
+                enableHighAccuracy:true
+            });
+        }else{
+            console.log('Cant get geolocation');
+        }
+    </script>
+</body>
+</html>
